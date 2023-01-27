@@ -1,0 +1,18 @@
+{
+  "name": "hdb_cf_binary_upload",
+  "version": "1.0.0",
+  "description": "HarperDB Custom Function: Binary Upload",
+  "author": "kris@harperdb.io",
+  "type": "module",
+  "dependencies": {
+    "@fastify/cookie": "^8.3.0",
+    "@fastify/formbody": "^7.4.0",
+    "@fastify/multipart": "^7.3.0",
+    "@fastify/static": "^6.6.1",
+    "@fastify/view": "^7.3.0",
+    "axios": "^1.2.5",
+    "chai": "^4.3.7",
+    "ejs": "^3.1.8",
+    "mocha": "^10.2.0"
+  }
+}
