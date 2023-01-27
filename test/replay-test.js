@@ -70,7 +70,7 @@ describe('test schema operations', () => {
 			method: 'POST',
 			data: {
 				'schema':'test-replay',
-				'table':'some-data',
+				//'table':'some-data',
 				'start': 'Thu, 26 Jan 2023 01:03:39 GMT',
 				'end': 'Fri, 27 Jan 2023 10:03:39 GMT'
 			},

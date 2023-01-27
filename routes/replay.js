@@ -6,7 +6,7 @@ export default async (server, { hdbCore, logger }) => {
 	  POST /replay
 	  the primary entry point, where the UI exists
 	*/
-	server.post("/range", {
+	server.post('/range', {
 		preValidation: [hdbCore.preValidation[1]],
 		handler: async (request, reply) => {
 			const { schema, table, start, end, hdb_user } = request.body || {};
@@ -15,12 +15,35 @@ export default async (server, { hdbCore, logger }) => {
 			if (!end)
 				throw new Error('An end time must be provided');
 			let tables = [];
-			tables.push({ schema, table });
-			/*
-			request.body = {
-			  operation: "describe_all",
-			};
-			let dogs = await hdbCore.request(request);*/
+			if (table) {
+				if (!schema)
+					throw new Error('A table name was provided, but no schema name');
+				tables.push({ schema, table });
+			} else if (schema) {
+				// get all the tables for the schema
+				request.body = {
+					hdb_user,
+					operation: 'describe_schema',
+					schema,
+				};
+				let all_tables = await hdbCore.request(request);
+				for (let table_name in all_tables) {
+					tables.push({ schema, table: table_name });
+				}
+			} else {
+				// get all the tables for all the schemas
+				request.body = {
+					hdb_user,
+					operation: 'describe_all',
+				};
+				let all_schemas = await hdbCore.request(request);
+				for (let schema_name in all_schemas) {
+					let schema = all_schemas[schema_name];
+					for (let table_name in schema) {
+						tables.push({ schema: schema_name, table: table_name });
+					}
+				}
+			}
 			let replay_promises = tables.map(({ schema, table }) => {
 				let request_body = {
 					hdb_user,
