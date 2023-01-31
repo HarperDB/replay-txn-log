@@ -1,7 +1,7 @@
 const MAX_CONCURRENT_OPERATIONS = 1000;
 const LOGGING_PERIOD = 1000;
 let outstanding_operations = [];
-export default async (server, { hdbCore, logger }) => {
+export default (server, { hdbCore, logger }) => {
 	/*
 	  POST /txn-replay/range
 	  the primary entry point for replaying a transaction log

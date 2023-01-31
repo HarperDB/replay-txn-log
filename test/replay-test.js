@@ -1,6 +1,6 @@
 'use strict';
 
-import { assert, expect } from 'chai';
+import { assert } from 'chai';
 import axios from 'axios';
 
 const authorization = 'Basic YWRtaW46QWJjMTIzNCE=';//'Basic ' + btoa('admin:Abc1234!');
