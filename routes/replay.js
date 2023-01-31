@@ -3,7 +3,7 @@ const LOGGING_PERIOD = 1000;
 let outstanding_operations = [];
 export default (server, { hdbCore, logger }) => {
 	/*
-	  POST /txn-replay/range
+	  POST /replay-txn-log/range
 	  the primary entry point for replaying a transaction log
 	*/
 	server.post('/range', {
