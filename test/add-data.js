@@ -3,7 +3,7 @@
 import { assert } from 'chai';
 import axios from 'axios';
 
-const authorization = 'Basic YWRtaW46QWJjMTIzNCE=';//'Basic ' + btoa('admin:Abc1234!');
+const authorization = 'Basic SERCX0FETUlOOnBhc3N3b3Jk';
 const TEST_URL = 'http://localhost:9925';
 const headers = { authorization };
 let response;
@@ -40,3 +40,12 @@ for (let i = 0; i < 100; i++) {
 	console.log('inserted data',response?.data);
 }
 
+
+function operation(operation_data) {
+	return axios({
+		url: TEST_URL,
+		method: 'POST',
+		data: operation_data,
+		headers
+	});
+}

@@ -3,7 +3,7 @@
 import { assert } from 'chai';
 import axios from 'axios';
 
-const authorization = 'Basic YWRtaW46QWJjMTIzNCE=';//'Basic ' + btoa('admin:Abc1234!');
+const authorization = 'Basic SERCX0FETUlOOnBhc3N3b3Jk';
 const TEST_URL = 'http://localhost:9925';
 const headers = { authorization };
 describe('test replay operation', () => {
