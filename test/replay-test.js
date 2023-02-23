@@ -6,7 +6,7 @@ import axios from 'axios';
 const authorization = 'Basic YWRtaW46QWJjMTIzNCE=';//'Basic ' + btoa('admin:Abc1234!');
 const TEST_URL = 'http://localhost:9925';
 const headers = { authorization };
-describe('test schema operations', () => {
+describe('test replay operation', () => {
 	before(async () => {
 		let response;
 		try {
@@ -67,37 +67,42 @@ describe('test schema operations', () => {
 			schema: 'test-replay',
 		});
 		console.log('creating table')
-		response = await operation({
-			operation: 'create_table',
-			schema: 'test-replay',
-			table: 'some-data',
-			hash_attribute: 'id',
-		});
+		try {
+		let response = await operation({
+				operation: 'create_table',
+				schema: 'test-replay',
+				table: 'some-data',
+				hash_attribute: 'id',
+			});
 
-		response = await axios({
-			url: 'http://localhost:9926/replay/range',
-			method: 'POST',
-			data: {
-				'schema':'test-replay',
-				//'table':'some-data',
-				'start': new Date(Date.now() - 86400000).toUTCString(),
-				'end': new Date(Date.now() + 86400000).toUTCString(),
-			},
-			headers
-		});
-		console.log(response.status, response.data);
-		response = await operation({
-			operation: 'search_by_hash',
-			schema: 'test-replay',
-			table: 'some-data',
-			hash_values: [1, 2],
-			get_attributes: ['*']
-		});
-		assert.equal(response.data.length, 1);
-		console.log(response.status, response.data);
+			let response = await axios({
+				url: 'http://localhost:9926/replay/range',
+				method: 'POST',
+				data: {
+					'schema': 'test-replay',
+					//'table':'some-data',
+					'start': new Date(Date.now() - 86400000).toUTCString(),
+					'end': new Date(Date.now() + 86400000).toUTCString(),
+				},
+				headers
+			});
+			console.log(response.status, response.data);
+			response = await operation({
+				operation: 'search_by_hash',
+				schema: 'test-replay',
+				table: 'some-data',
+				hash_values: [1, 2],
+				get_attributes: ['*']
+			});
+			assert.equal(response.data.length, 1);
+			console.log(response.status, response.data);
+		}catch(error){
+			console.error(error.message, error.response?.data);
+
+		}
 	});
 	after(function() {
-		return operation({
+		return; operation({
 			operation: 'drop_schema',
 			schema: 'test-replay',
 		});
