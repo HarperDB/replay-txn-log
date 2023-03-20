@@ -1,0 +1,14 @@
+{
+  "name": "hdb_cf_binary_upload",
+  "version": "1.0.0",
+  "description": "HarperDB Custom Function: Binary Upload",
+  "author": "kris@harperdb.io",
+  "type": "module",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "axios": "^1.2.5",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
+  }
+}
